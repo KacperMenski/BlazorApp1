@@ -1,0 +1,40 @@
+﻿@page "/orders"
+@using BlazorApp1.Model
+@rendermode InteractiveServer
+
+@code {
+    
+    private List<Order> orders = new List<Order>();
+    private string newOrderText;
+
+    
+    private void AddOrder()
+    {
+        if (!string.IsNullOrWhiteSpace(newOrderText))  
+        {
+            
+            int newId = orders.Count == 0 ? 1 : orders.Max(o => o.Id) + 1;  
+            orders.Add(new Order { Id = newId, Text = newOrderText });
+            newOrderText = "";  
+        }
+    }
+}
+
+<h3>Orders List</h3>
+
+
+<form @onsubmit="AddOrder">
+    <div>
+        <label for="orderInput">New Order:</label>
+        <input type="text" id="orderInput" @bind="newOrderText" />
+    </div>
+    <button type="submit">Add</button>
+</form>
+
+
+<ul>
+    @foreach (var order in orders)
+    {
+        <OneOrder Order="@order" />
+    }
+</ul>

@@ -1,0 +1,8 @@
+﻿@using BlazorApp1.Model
+@code {
+    [Parameter] public Order Order { get; set; }
+}
+
+<li>
+    Order: @Order.Id - @Order.Text
+</li>
